@@ -117,6 +117,11 @@ describe "Taggable" do
     TaggableModel.tagged_with('rails', :on => :skills).tagged_with('happier', :on => :tags).should == [bob]
   end
   
+  it "should be able to find tagged with a single argument" do
+    bob = TaggableModel.create(:name => "Bob", :tag_list => "fitter, happier, more productive", :skill_list => "ruby, rails, css")
+    TaggableModel.tagged_with("rails").should == [bob]
+  end
+  
   describe "Single Table Inheritance" do
     before do
       [TaggableModel, Tag, Tagging, TaggableUser].each(&:delete_all)
